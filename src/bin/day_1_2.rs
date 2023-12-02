@@ -1,6 +1,6 @@
 use std::{fs, collections::HashMap, };
 
-fn compare(subject: &String) -> Option<char> {
+fn compare(subject: &String) -> Option<u32> {
     let mut number_strings = HashMap::new();
 
     number_strings.insert("zero", 0);
@@ -16,7 +16,7 @@ fn compare(subject: &String) -> Option<char> {
 
     for number in &number_strings {
         if subject.contains(*number.0) {
-            return Some(char::from_u32(number_strings[number.0]).unwrap())
+            return Some(*number.1);
         }
     }
 
@@ -44,13 +44,14 @@ fn main() {
             if current_sub_string.len() > 2 {
                 let is_num = compare(&current_sub_string);
                 match is_num {
-                    Some(c) => { 
-                        num_string.push(c);
+                    Some(c) => {
+                        num_string.push(char::from_u32(c).unwrap());
                         current_sub_string = "".to_string();
                     },
                     None => {}
                 }
             }
+            println!("{}", num_string);
         }
         num_string
     }).collect();
