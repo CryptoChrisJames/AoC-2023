@@ -45,11 +45,7 @@ fn main() {
                 let is_num = compare(&current_sub_string);
                 match is_num {
                     Some(c) => {
-<<<<<<< HEAD
-                        num_string.push(c);
-=======
                         num_string.push(char::from_u32(c).unwrap());
->>>>>>> 48948d5276c5b3eb5f7274e6fe6e4081f13feda9
                         current_sub_string = "".to_string();
                     },
                     None => {}
