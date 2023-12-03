@@ -44,7 +44,7 @@ fn main() {
             if current_sub_string.len() > 2 {
                 let is_num = compare(&current_sub_string);
                 match is_num {
-                    Some(c) => { 
+                    Some(c) => {
                         num_string.push(c);
                         current_sub_string = "".to_string();
                     },
