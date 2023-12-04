@@ -45,38 +45,37 @@ fn main() {
                 let is_num = compare(&current_sub_string);
                 match is_num {
                     Some(c) => {
-                        num_string.push(char::from_u32(c).unwrap());
+                        let new_char = char::from_u32(c+48).unwrap();
+                        num_string.push(new_char);
                         current_sub_string = "".to_string();
                     },
                     None => {}
                 }
             }
-            println!("{}", num_string);
         }
         num_string
     }).collect();
 
-    for v in filtered {
-        println!("{}", v);
+    let numbers: Vec<usize> = filtered.iter().map(|num| {
+        let nums: Vec<char> = num.to_string().chars().collect();
+        if nums.len() > 2 {
+            let mut two_digits: String = "".to_string();
+            two_digits.push(nums[0]);
+            two_digits.push(nums[nums.len()-1]);
+            return two_digits.parse::<usize>().unwrap();
+        }
+        if nums.len() == 1  {
+            let mut two_digits: String = "".to_string();
+            two_digits.push(nums[0]);
+            two_digits.push(nums[0]);
+            return two_digits.parse::<usize>().unwrap();
+        }
+        num.parse::<usize>().unwrap()
+    }).collect();
+
+    for n in &numbers {
+        println!("{}",n);
     }
-
-    // let numbers: Vec<usize> = filtered.iter().map(|num| {
-    //     let nums: Vec<char> = num.to_string().chars().collect();
-    //     if nums.len() > 2 {
-    //         let mut two_digits: String = "".to_string();
-    //         two_digits.push(nums[0]);
-    //         two_digits.push(nums[nums.len()-1]);
-    //         return two_digits.parse::<usize>().unwrap();
-    //     }
-    //     if nums.len() == 1  {
-    //         let mut two_digits: String = "".to_string();
-    //         two_digits.push(nums[0]);
-    //         two_digits.push(nums[0]);
-    //         return two_digits.parse::<usize>().unwrap();
-    //     }
-    //     *num
-    // }).collect();
-
-    // let sum = numbers.iter().fold(0, |acc, n| acc + n);
-    // print!("{}", sum);
+    let sum = numbers.iter().fold(0, |acc, n| acc + n);
+    print!("{}", sum);
 }
